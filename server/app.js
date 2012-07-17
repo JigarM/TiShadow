@@ -21,6 +21,7 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
+  app.use(express.limit('150mb'));
 });
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
@@ -37,9 +38,16 @@ var sio=io.listen(app, {log: false});
 app.get('/', routes.index);
 var bundle;
 app.post('/', function(req, res) {
-  var name = path.basename(req.body.bundle).replace(".zip","");
-  Logger.log("INFO", null, "New Bundle: " + req.body.bundle + " | " + name);
-  bundle = req.body.bundle;
+  var name
+  if (req.body.bundle) {
+    name = path.basename(req.body.bundle).replace(".zip","");
+    bundle = req.body.bundle;
+  } else {
+    Logger.log("WARN", null, "Remote Bundle Received");
+    name = req.files.bundle.name.replace(".zip","");
+    bundle = req.files.bundle.path
+  }
+  Logger.log("INFO", null, "New Bundle: " + bundle + " | " + name);
   sio.sockets.emit("bundle", {name: name, spec: req.body.spec});
   res.send("OK", 200);
 });

@@ -1,7 +1,9 @@
 var path = require("path"),
     fs = require("fs"),
     xml2js = require("xml2js"),
+    _ = require("underscore"),
     base = process.cwd(),
+    config_file = path.join(base,".tishadow.json"),
     config = {
       base: base
     };
@@ -14,6 +16,19 @@ function getAppName(callback) {
       callback(result);
     });
   });
+}
+
+config.server = "localhost";
+// File Based Configs (per project)
+if (path.existsSync(config_file)) {
+  var c = require(config_file);
+  _.extend(config, c);
+}
+
+config.write = function(property, value) {
+  var c = _.pick(config, 'server','room');
+  c[property] = value;
+  fs.writeFileSync(config_file, JSON.stringify(c));
 }
 
 config.init = function(callback) {

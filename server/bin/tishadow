@@ -44,6 +44,10 @@ if (cmd === "server") {
   require("../app.js");
 } else if (cmd === "clear") {
   api.clearCache();
+} else if (cmd === "set-server") {
+  config.write("server", cmd2);
+} else if (cmd === "set-room") {
+  config.write("room",cmd2);
 } else {
   if (!path.existsSync(path.join(config.base,'tiapp.xml'))) {
     console.log("Script must be executed in the Titanium project's root directory");

@@ -8,6 +8,7 @@
     "path": "",
     "xml2js": "",
     "zipstream" :"",
+    "underscore":"",
     "colors": ""
   },
   "devDependencies": {},
