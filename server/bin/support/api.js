@@ -15,7 +15,10 @@ function postRequest(path) {
     res.on('data', function (chunk) {
       console.log('Response: ' + chunk);
     });
-  }); 
+  });
+  if (config.username != "" && config.password != "") {
+    req.setHeader('Authorization', 'Basic ' + new Buffer(config.username + ':' + config.password).toString('base64'));
+  }
   return req;
 }
 
@@ -36,7 +39,7 @@ function postZipToServer (path, data) {
     '--' + boundaryKey + '\r\n'
     + 'Content-Type: application/text\r\n' 
     + 'Content-Disposition: form-data; name="spec"\r\n\r\n'
-    + data.spec + "\r\n"
+    + config.isSpec + "\r\n"
     + '--' + boundaryKey + '\r\n'
     + 'Content-Type: application/zip\r\n' 
     + 'Content-Disposition: form-data; name="bundle"; filename="' + _path.basename(config.bundle_file) + '"\r\n'
@@ -58,7 +61,7 @@ exports.newBundle = function(data) {
   if (config.server === "localhost") {
     postToServer("/", {bundle:config.bundle_file, spec: config.isSpec});
   } else {
-    postZipToServer("/", {spec: config.isSpec});
+    postZipToServer("/");
   }
 };
 

@@ -27,12 +27,13 @@ if (path.existsSync(config_file)) {
   _.extend(config, c);
 }
 
+config.configurables = ['server','port','room','username', 'password'];
+
 config.write = function(property, value) {
-  var c = _.pick(config, 'server','port','room');
+  var c = _.pick(config, config.configurables);
   c[property] = value;
   fs.writeFileSync(config_file, JSON.stringify(c));
 }
-
 config.init = function(callback) {
   getAppName(function(result) {
     var app_name = config.app_name = result.name || "bundle";
@@ -47,7 +48,6 @@ config.init = function(callback) {
 
     config.isUpdate = process.argv[2] === "update" || process.argv[3] === "update";
     config.isSpec   = process.argv[2] === "spec";
-
     callback();
   });
 }
