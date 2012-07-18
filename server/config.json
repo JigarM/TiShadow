@@ -1,0 +1,6 @@
+{
+  "server_port": "3000",
+  "auth_username" : "",
+  "auth_password" : "",
+  "allow_remote_bundles" : true
+}
