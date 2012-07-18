@@ -19,6 +19,8 @@ function getAppName(callback) {
 }
 
 config.server = "localhost";
+config.port = "3000";
+
 // File Based Configs (per project)
 if (path.existsSync(config_file)) {
   var c = require(config_file);
@@ -26,7 +28,7 @@ if (path.existsSync(config_file)) {
 }
 
 config.write = function(property, value) {
-  var c = _.pick(config, 'server','room');
+  var c = _.pick(config, 'server','port','room');
   c[property] = value;
   fs.writeFileSync(config_file, JSON.stringify(c));
 }

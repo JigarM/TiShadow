@@ -5,8 +5,8 @@ var http = require("http"),
 
 function postRequest(path) {
   var post_options = {
-    host: 'localhost',
-    port: '3000',
+    host: config.server,
+    port: config.port,
     path: path,
     method: 'POST'
   };
