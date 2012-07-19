@@ -7,7 +7,6 @@ var path = require("path"),
     config = {
       base: base
     };
-
 //get app name
 function getAppName(callback) {
   var parser = new xml2js.Parser();
@@ -22,7 +21,7 @@ config.server = "localhost";
 config.port = "3000";
 
 // File Based Configs (per project)
-if (path.existsSync(config_file)) {
+if (fs.existsSync(config_file)) {
   var c = require(config_file);
   _.extend(config, c);
 }

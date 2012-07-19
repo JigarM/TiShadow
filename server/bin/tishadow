@@ -7,6 +7,7 @@ var path = require("path"),
     config = require("./support/config");
 
     require("./support/fs_extension");
+    fs.existsSync = fs.existsSync || path.existsSync;
 
 // Copies all Resource files and prepares JS files
 function prepare(src, dst) {

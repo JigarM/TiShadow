@@ -10,6 +10,7 @@ var express = require('express'),
     path = require('path'),
     Logger = require('./logger');
     config = require('./config.json');
+    fs.existsSync = fs.existsSync || path.existsSync;
 
 
 var app = module.exports = express.createServer();
