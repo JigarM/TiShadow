@@ -79,7 +79,7 @@ function loadRemoteZip(name, url, spec) {
 }
 
 Ti.App.addEventListener("tishadow:bundle", function(o) {
-  loadRemoteZip(o.name, "http://" + Ti.App.Properties.getString("address") + ":3000/bundle", o.spec);
+  loadRemoteZip(o.name, "http://" + Ti.App.Properties.getString("address") + ":" + Ti.App.Properties.getString("port") + "/bundle", o.spec);
 });
 
 // Clears all apps from cache

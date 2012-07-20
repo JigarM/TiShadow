@@ -56,6 +56,7 @@ exports.StartScreen = function() {
   function connect() {
     Ti.App.fireEvent('tishadow:socket_connect', {
       address : Ti.App.Properties.getString("address"),
+      port: Ti.App.Properties.getString('port'),
       name : Ti.Platform.osname + ", " + Ti.Platform.version + ", " + Ti.Platform.address
     });
   }
